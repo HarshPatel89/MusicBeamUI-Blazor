@@ -1,7 +1,55 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+@inject IJSRuntime _JSRuntime
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<div class="row">
+    <button class="btn btn-secondary" @onclick="TestConfirmBox">Test Confirm Button</button>
+</div>
+
+
+    <button class="btn btn-success" @onclick="ShowSuccess">Show Success</button>
+    <button class="btn btn-warning" @onclick="ShowError">Show Error</button>
+
+
+<div class="row">
+    @if (ConfirmResult)
+    {
+        <p>Confirmation has been made!</p>
+    }
+    else
+    {
+        <p>Pending Confirmation.</p>
+    }
+</div>
+
+
+@code {
+
+    private string ConfirmMessage = "Are you sure to click here?";
+
+    private bool ConfirmResult { get; set; }
+
+    private async Task TestConfirmBox()
+    {
+        ConfirmResult = await _JSRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
+    }
+
+
+
+    private async Task ShowSuccess(){
+        await _JSRuntime.InvokeVoidAsync("showToastr", "success", "Success Notification");
+    }
+
+    private async Task ShowError()
+    {
+        await _JSRuntime.InvokeVoidAsync("showToastr", "error", "Error Notification");
+    }
+
+}
+

@@ -1,3 +1,4 @@
+using MusicBeam;
 using MusicBeam.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+//builder.Services.AddSingleton< AppState>();
+//builder.Services.AddSingleton< ApiClient>();
 
 var app = builder.Build();
 
