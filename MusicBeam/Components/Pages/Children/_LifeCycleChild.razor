@@ -1,0 +1,29 @@
+﻿<h3 class="text-warning">Blazor LifeCycle</h3>
+
+<hr />
+@foreach (var item in EventType)
+{
+    <p>@item</p>
+    <hr />
+}
+
+
+@code {
+    List<string> EventType = new List<string>();
+
+    [Parameter]
+    public int CountValue { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        EventType.Add("OnInitialized on CHILD is called !");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventType.Add("OnParametersSet on CHILD is called !");
+    }
+
+
+}
